@@ -1,0 +1,79 @@
+De if-verklaring in PowerShell wordt gebruikt voor conditionele branching. Je kunt het gebruiken om een blok code uit te voeren als een bepaalde voorwaarde waar is. Hier is een gids over het gebruik van if met de -eq (gelijk aan) vergelijkingsoperator:
+
+Basis if-Verklaring:
+Gebruik if om te controleren of een voorwaarde waar is:
+$antwoord = 42
+
+if ($antwoord -eq 42) {
+    Write-Output "Het antwoord is 42!"
+}
+Negatie met -ne (niet gelijk aan):
+Gebruik -ne om te controleren of een voorwaarde niet waar is:
+$getal = 10
+
+if ($getal -ne 0) {
+    Write-Output "Het getal is niet nul."
+}
+Strings controleren:
+Gebruik -eq om strings te vergelijken:
+$kleur = "Blauw"
+
+if ($kleur -eq "Blauw") {
+    Write-Output "De kleur is blauw."
+}
+Case-Insensitive String Vergelijking:
+Gebruik -ieq voor een case-insensitive string vergelijking:
+$fruit = "appel"
+
+if ($fruit -ieq "Appel") {
+    Write-Output "Het fruit is een appel."
+}
+Gebruik van Logische Operatoren:
+Combineer voorwaarden met logische operatoren zoals -and, -or, -not:
+$leeftijd = 25
+
+if ($leeftijd -ge 18 -and $leeftijd -le 30) {
+    Write-Output "Je bent tussen 18 en 30 jaar oud."
+}
+Arrays controleren:
+Gebruik -contains om te controleren of een array een specifieke waarde bevat:
+$fruiten = "Appel", "Banaan", "Sinaasappel"
+
+if ($fruiten -contains "Banaan") {
+    Write-Output "De array bevat Banaan."
+}
+Bestaanscontrole van Bestanden:
+Gebruik Test-Path om te controleren of een bestand bestaat:
+$bestandsPad = "C:\Pad\Naar\Bestand.txt"
+
+if (Test-Path $bestandsPad) {
+    Write-Output "Het bestand bestaat."
+}
+Gebruik van else-Verklaring:
+Voeg een else-blok toe voor code die moet worden uitgevoerd wanneer de voorwaarde niet waar is:
+$cijfer = 75
+
+if ($cijfer -ge 70) {
+    Write-Output "Je bent geslaagd!"
+} else {
+    Write-Output "Je bent niet geslaagd."
+}
+Geneste if-Verklaringen:
+Gebruik geneste if-verklaringen voor complexere voorwaarden:
+$getal = 42
+
+if ($getal -gt 0) {
+    if ($getal -lt 50) {
+        Write-Output "Het getal is tussen 0 en 50."
+    }
+}
+Controleren op Null of Leeg:
+Gebruik $null en -ne om te controleren of een variabele niet null of leeg is:
+$naam = $null
+
+if ($naam -ne $null) {
+    Write-Output "De naam is niet null."
+} else {
+    Write-Output "De naam is null of leeg."
+}
+De if-verklaring is een fundamenteel onderdeel van PowerShell-scripting, waarmee je beslissingen kunt nemen op basis van voorwaarden. Experimenteer met verschillende voorwaarden en logische operatoren om complexere scripts te maken die zijn afgestemd op jouw specifieke behoeften.

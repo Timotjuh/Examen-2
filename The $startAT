@@ -1,0 +1,63 @@
+
+Hier is een gids over hoe je de variabelen $startAt en $stopAt in PowerShell kunt gebruiken om de huidige datum en tijd vast te leggen en een toekomstige tijd te berekenen op basis van een opgegeven duur:
+
+1. Vang Huidige Datum en Tijd:
+Gebruik Get-Date om de huidige datum en tijd vast te leggen:
+
+$startAt = Get-Date
+2. Bereken Toekomstige Tijd:
+Gebruik $startAt en voeg een opgegeven duur toe om $stopAt te berekenen:
+
+$aantalSeconden = 3600  # Een uur in seconden
+$stopAt = $startAt + [System.TimeSpan]::FromSeconds($aantalSeconden)
+3. Toon Start- en Stoptijden:
+Toon de start- en stoptijden:
+
+Write-Output "Starttijd: $startAt"
+Write-Output "Stoptijd: $stopAt"
+4. Opmaak van Datums:
+Formatteer datums voor betere leesbaarheid:
+
+Write-Output "Starttijd: $($startAt.ToString('yyyy-MM-dd HH:mm:ss'))"
+Write-Output "Stoptijd: $($stopAt.ToString('yyyy-MM-dd HH:mm:ss'))"
+5. Gebruik in Voorwaardelijke Verklaringen:
+Controleer of de huidige tijd voor of na de stoptijd ligt:
+
+if (Get-Date -lt $stopAt) {
+    Write-Output "De huidige tijd is voor de stoptijd."
+} else {
+    Write-Output "De huidige tijd is na de stoptijd."
+}
+6. Bereken Duur:
+Bereken de duur tussen start- en stoptijden:
+
+$duur = $stopAt - $startAt
+Write-Output "Duur: $($duur.Hours) uur, $($duur.Minutes) minuten, $($duur.Seconds) seconden"
+7. Wacht tot de Stoptijd:
+Gebruik Start-Sleep om het script te pauzeren tot de stoptijd is bereikt:
+
+Write-Output "Wachten tot de stoptijd..."
+Start-Sleep -Seconds $aantalSeconden
+Write-Output "Stoptijd bereikt!"
+8. Dynamische Stoptijd:
+Maak de stoptijd dynamisch op basis van gebruikersinvoer of andere voorwaarden:
+
+$aantalMinuten = 30
+$stopAtDynamisch = $startAt + [System.TimeSpan]::FromMinutes($aantalMinuten)
+Write-Output "Dynamische Stoptijd: $($stopAtDynamisch.ToString('yyyy-MM-dd HH:mm:ss'))"
+9. Gebruik in Lussen:
+Gebruik $startAt en $stopAt binnen een lus:
+
+while (Get-Date -lt $stopAt) {
+    Write-Output "Binnen de lus..."
+    Start-Sleep -Seconds 5
+}
+Write-Output "Lus verlaten. Stoptijd bereikt!"
+10. Aanpassen van Stoptijd:
+Pas de stoptijd aan op basis van extra voorwaarden:
+
+if ($extraVoorwaarde) {
+    $stopAt = $stopAt + [System.TimeSpan]::FromMinutes(15)
+}
+Deze gids behandelt het gebruik van $startAt en $stopAt in PowerShell, inclusief het vastleggen van de huidige datum en tijd, het berekenen van een toekomstige tijd, het weergeven van start- en stoptijden, werken met voorwaardelijke verklaringen, het berekenen van de duur, en het gebruik ervan in lussen. Pas de voorbeelden aan op basis van de specifieke vereisten van je script.
+

@@ -1,0 +1,41 @@
+Er zijn verschillende manieren om visuele indicatoren of animaties te maken in PowerShell. Hier is een voorbeeld met behulp van een voortgangsbalk, die een andere visuele ervaring kan bieden in vergelijking met een spinner:
+
+function Show-ProgressBar {
+    param (
+        [int]$Total,
+        [int]$SleepMilliseconds
+    )
+
+    $progressBarWidth = 50
+    $progressChar = "="
+    $emptyChar = " "
+
+    for ($i = 0; $i -le $Total; $i++) {
+        $percentage = [math]::floor(($i / $Total) * 100)
+        $completedWidth = [math]::floor(($i / $Total) * $progressBarWidth)
+
+        $progress = "[" + ($progressChar * $completedWidth) + ($emptyChar * ($progressBarWidth - $completedWidth)) + "]"
+        $status = "$percentage%"
+
+        Write-Host -NoNewline "$progress $status"
+        Start-Sleep -Milliseconds $SleepMilliseconds
+        Clear-Host
+    }
+}
+
+# Voorbeeld van het gebruik van de voortgangsbalk
+$TotalIterations = 100
+$SleepMilliseconds = 50
+
+Show-ProgressBar -Total $TotalIterations -SleepMilliseconds $SleepMilliseconds
+
+# Voer hier je daadwerkelijke controle of taak uit
+# ...
+
+In dit voorbeeld:
+
+De voortgangsbalk wordt weergegeven door een reeks gelijktekens (=) om de voortgang aan te geven.
+De breedte van de voortgangsbalk is ingesteld op 50 tekens voor visuele duidelijkheid.
+Het voortgangspercentage wordt naast de voortgangsbalk weergegeven.
+De functie Show-ProgressBar neemt parameters voor het totale aantal iteraties en de slaaptijd tussen elke iteratie.
+Je kunt de tekens aanpassen die worden gebruikt voor de voortgangsbalk, de breedte aanpassen of andere aspecten wijzigen op basis van je voorkeuren en de visuele ervaring die je wilt creëren. Voel je vrij om te experimenteren met verschillende visuele elementen totdat je er een vindt die past bij de context van je script.

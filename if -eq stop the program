@@ -1,0 +1,15 @@
+You can use the if statement to check if the answer is 9 and then take appropriate actions, including stopping the program. In PowerShell, you can use the Exit keyword to stop the execution of a script. Here's an example:
+
+$answer = 9
+
+if ($answer -eq 9) {
+    Write-Output "Het antwoord is 9. Het programma wordt gestopt."
+    Exit
+} else {
+    Write-Output "Het antwoord is niet 9. Doorgaan met het programma."
+    # Je aanvullende code hier
+}
+In dit voorbeeld, als de variabele $answer gelijk is aan 9, zal het een bericht afdrukken, het programma stoppen met behulp van Exit, en de code in het else-blok niet uitvoeren. Als het antwoord niet 9 is, zal het een ander bericht afdrukken en doorgaan met de code binnen het else-blok.
+
+Voel je vrij om deze structuur aan te passen aan je specifieke script en voorwaarden.
+

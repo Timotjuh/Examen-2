@@ -1,0 +1,51 @@
+Een Gids voor het Gebruik van Aliassen in PowerShell
+
+Aliassen zijn verkorte namen of alternatieve namen voor cmdlets (opdrachten), functies en scripts in PowerShell. Ze bieden een handige manier om kortere namen te gebruiken voor veelgebruikte commando's. Hier volgt een uitgebreide gids over het werken met aliassen in PowerShell:
+
+1. Bestaande Aliassen Bekijken:
+Om een lijst te zien van alle aliassen in je PowerShell-sessie, gebruik je het cmdlet Get-Alias:
+
+Get-Alias
+2. Je Eigen Alias Maken:
+Om een nieuwe alias te maken, kun je het cmdlet New-Alias gebruiken. Bijvoorbeeld, een alias maken voor het cmdlet Get-ChildItem:
+
+New-Alias -Name gci -Value Get-ChildItem
+3. Het Gebruik van Aliassen:
+Zodra een alias is gemaakt, kun je deze gebruiken in plaats van het volledige commando. Bijvoorbeeld:
+
+gci C:\Pad\Naar\Map
+4. Persistente Aliassen:
+Als je je aliassen wilt behouden tussen verschillende PowerShell-sessies, kun je de aliascreatie-opdrachten toevoegen aan je PowerShell-profielscript. Het profielscript wordt uitgevoerd telkens wanneer je een nieuwe PowerShell-sessie start.
+
+Om je profielscript te openen (maak er een aan als het niet bestaat):
+notepad $PROFILE
+Voeg de aliascreatie-opdrachten toe aan het profielscript, sla op en herstart PowerShell.
+5. Een Alias Verwijderen:
+Om een alias te verwijderen, kun je het cmdlet Remove-Alias gebruiken. Bijvoorbeeld, het verwijderen van de alias voor gci:
+
+Remove-Alias -Name gci
+6. Ingebouwde Aliassen:
+PowerShell wordt geleverd met enkele ingebouwde aliassen voor veelvoorkomende commando's. Bijvoorbeeld, ls is een alias voor Get-ChildItem, en dir is een alias voor Get-ChildItem.
+
+ls
+7. Aliasdefinities Bekijken:
+Om te zien naar welk commando een alias verwijst, kun je het cmdlet Get-Command gebruiken:
+
+Get-Command gci
+8. Controleren of een Alias Bestaat:
+Je kunt controleren of een alias al bestaat voordat je er een nieuwe aanmaakt:
+
+if (-not (Get-Alias -Name gci -ErrorAction SilentlyContinue)) {
+    New-Alias -Name gci -Value Get-ChildItem
+}
+9. Begrip van de Prioriteit van Aliassen:
+Als een alias conflicteert met een bestaand commando of een functie, heeft de alias voorrang. Wees voorzichtig om geen aliassen te maken die belangrijke commando's overschrijven.
+
+10. Ingebouwde Aliassen voor Veelvoorkomende Commando's:
+Enkele veelvoorkomende ingebouwde aliassen zijn:
+
+ls (Get-ChildItem)
+cd (Set-Location)
+del (Remove-Item)
+ren (Rename-Item)
+Deze gids helpt je op weg met het gebruik van aliassen in PowerShell voor een efficiëntere en aangepaste opdrachtregelervaring. Met aliassen kun je jouw interactie met PowerShell vereenvoudigen en productiever maken.

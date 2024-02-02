@@ -1,0 +1,114 @@
+De variabele $args in PowerShell is een automatische variabele die een reeks waarden bevat die aan een script of functie zijn doorgegeven. Het stelt je in staat om te werken met een variabel aantal argumenten, waardoor je scripts flexibeler worden. Hier is een gids over het gebruik van $args en het opnemen van acties op basis van specifieke antwoorden:
+
+Basisgebruik:
+In je PowerShell-script of -functie kun je de waarden die als argumenten zijn doorgegeven benaderen met behulp van de variabele $args:
+foreach ($arg in $args) {
+    Write-Output "Argument: $arg"
+}
+Beperking van Antwoorden:
+Je kunt het aantal verwachte argumenten beperken door parameters te definiëren in je script of functie:
+param(
+    [string]$param1,
+    [int]$param2
+)
+
+Write-Output "Parameter 1: $param1, Parameter 2: $param2"
+Roep het script of de functie aan met genaamde parameters:
+
+.\JouwScript.ps1 -param1 "Waarde1" -param2 42
+Actie op Basis van Antwoord:
+Je kunt conditionele verklaringen gebruiken om acties uit te voeren op basis van specifieke antwoorden:
+param(
+    [string]$keuze
+)
+
+switch ($keuze) {
+    "1" { Write-Output "Je hebt optie 1 gekozen"; <# Voer actie uit voor optie 1 #> }
+    "2" { Write-Output "Je hebt optie 2 gekozen"; <# Voer actie uit voor optie 2 #> }
+    "3" { Write-Output "Je hebt optie 3 gekozen"; <# Voer actie uit voor optie 3 #> }
+    Default { Write-Output "Ongeldige keuze"; <# Behandel andere gevallen #> }
+}
+Roep het script of de functie aan met de gewenste keuze:
+
+.\JouwScript.ps1 -keuze "1"
+Behandeling van Ontbrekende Argumenten:
+Controleer of vereiste argumenten zijn opgegeven en geef een bericht weer zo niet:
+param(
+    [string]$gebruikersnaam,
+    [string]$wachtwoord
+)
+
+if (-not $gebruikersnaam -or -not $wachtwoord) {
+    Write-Output "Geef zowel gebruikersnaam als wachtwoord op."
+    return
+}
+
+# Ga verder met de scriptlogica
+Roep het script aan met de vereiste parameters:
+
+.\JouwScript.ps1 -gebruikersnaam "jan_jansen" -wachtwoord "geheim123"
+Standaardwaarden voor Parameters:
+Geef standaardwaarden voor parameters om gevallen waarin ze niet zijn gespecificeerd af te handelen:
+param(
+    [string]$naam = "StandaardNaam",
+    [int]$leeftijd = 25
+)
+
+Write-Output "Naam: $naam, Leeftijd: $leeftijd"
+Roep het script aan zonder parameters op te geven om standaardwaarden te gebruiken:
+
+.\JouwScript.ps1
+Gebruik van $args met Genoemde Parameters:
+Je kunt zowel $args als genoemde parameters samen gebruiken:
+param(
+    [string]$param1,
+    [int]$param2
+)
+
+foreach ($arg in $args) {
+    Write-Output "Argument van \$args: $arg"
+}
+
+Write-Output "Genaamde Parameter 1: $param1, Genaamde Parameter 2: $param2"
+Roep het script aan met een mix van positionele en genoemde parameters:
+
+.\JouwScript.ps1 -param1 "Waarde1" -param2 42 "ExtraArg"
+Combineren met Gebruikersinvoer:
+Combineer $args met gebruikersinvoer om interactieve scripts te maken:
+$naam = Read-Host -Prompt "Voer je naam in"
+$leeftijd = Read-Host -Prompt "Voer je leeftijd in"
+
+Write-Output "Naam: $naam, Leeftijd: $leeftijd"
+Arrays Doorgeven als Argumenten:
+$args kan ook arrays verwerken:
+param(
+    [string[]]$namen
+)
+
+foreach ($naam in $namen) {
+    Write-Output "Naam: $naam"
+}
+Roep het script aan met een array van namen:
+
+.\JouwScript.ps1 -namen "Jan", "Alice", "Bob"
+Validatie en Foutafhandeling:
+Voeg validatie voor argumenten toe en handel fouten gracieus af:
+param(
+    [Parameter(Mandatory=$true, Position=0)]
+    [string]$invoerPad,
+
+    [Parameter(Position=1)]
+    [string]$uitvoerPad = "C:\StandaardUitvoer"
+)
+
+if (-not (Test-Path $invoerPad)) {
+    Write-Output "Ongeldig invoerpad: $invoerPad"
+    return
+}
+
+# Ga verder met de scriptlogica
+Roep het script aan met geldige en ongeldige paden:
+
+.\JouwScript.ps1 -invoerPad "C:\GeldigPad" -uitvoerPad "C:\UitvoerPad"
+.\JouwScript.ps1 -invoerPad "C:\OngeldigPad"
+Deze gids behandelt verschillende scenario's voor het gebruik van $args in PowerShell, samen met best practices voor het omgaan met argumenten, het beperken van antwoorden en het bieden van acties op basis van specifieke keuzes of voorwaarden. Pas de voorbeelden aan op basis van je specifieke scriptvereisten.

@@ -1,0 +1,42 @@
+Hier zijn de voorbeelden van het gebruik van Format-List en Format-Table in PowerShell:
+
+Format-List Voorbeelden:
+Specifieke Eigenschappen Tonen:
+
+Get-WmiObject Win32_LogicalDisk | Format-List Name, FileSystem
+Uitvoer:
+
+FreeSpace      : 10559029248
+Name           : C:
+FileSystem     : NTFS
+Gebruik van Wildcards:
+
+Get-WmiObject Win32_LogicalDisk | Format-List f*
+Uitvoer:
+
+FileSystem : NTFS
+FreeSpace  : 10558660608
+Gebruik van Brackets voor Specifieke Eigenschappen:
+
+Get-WmiObject Win32_LogicalDisk | Format-List [nf]*
+Uitvoer:
+
+FileSystem      : NTFS
+FreeSpace       : 10558238720
+Name            : C:
+Format-Wide Oefening:
+Oefenen met Format-Wide:
+Get-Process | Format-Wide -Column 4
+Hiermee wordt de lijst met processen in vier kolommen weergegeven.
+Format-Table Voorbeelden:
+Alle Eigenschappen Tonen:
+
+Get-ChildItem C:\ -Recurse -Include *.log | Format-Table
+Dit geeft een overzichtelijke tabel van alle logbestanden en hun eigenschappen.
+
+Specifieke Eigenschappen Tonen met AutoSize:
+
+Get-ChildItem C:\ -Recurse -Include *.log | Format-Table -Property Name, Length, LastWriteTime -AutoSize
+Dit geeft een compacte tabel weer met de naam, lengte en laatste schrijftijd van de logbestanden.
+
+Met Format-List en Format-Table kun je de output van cmdlets aanpassen en de informatie presenteren op een manier die het meest relevant en overzichtelijk is voor jouw taken.

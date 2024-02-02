@@ -1,0 +1,44 @@
+De Write-Host cmdlet in PowerShell wordt gebruikt om uitvoer naar de console weer te geven. Het wordt vaak gebruikt om informatie, berichten of inhoud weer te geven die je aan de gebruiker wilt presenteren. Hier is een handleiding voor het gebruik van Write-Host:
+
+Basisgebruik:
+Om een eenvoudig bericht weer te geven, gebruik je Write-Host gevolgd door het bericht tussen aanhalingstekens:
+Write-Host "Hallo, PowerShell!"
+Tekstkleur:
+Je kunt de tekstkleur wijzigen met behulp van de parameter -ForegroundColor:
+Write-Host "Foutmelding" -ForegroundColor Rood
+Beschikbare kleuren zijn Zwart, Donkerblauw, Donkergroen, Donkercyaan, Donkerrood, Donkermagenta, Donkergeel, Grijs, Donkergrijs, Blauw, Groen, Cyaan, Rood, Magenta, Geel en Wit.
+
+Achtergrondkleur:
+Je kunt ook de achtergrondkleur wijzigen met behulp van de parameter -BackgroundColor:
+Write-Host "Belangrijk bericht" -BackgroundColor Geel -ForegroundColor Zwart
+Geen Nieuwe Regel:
+Standaard voegt Write-Host een nieuwe regel toe na het bericht. Om dit te voorkomen, gebruik je de parameter -NoNewline:
+Write-Host "Dit staat op dezelfde regel" -NoNewline
+Write-Host " als dit."
+Variabelen in Bericht:
+Je kunt variabelen opnemen in de berichtreeks:
+$naam = "Jan"
+Write-Host "Hallo, $naam!"
+Meerdere Berichten:
+Toon meerdere berichten met meerdere Write-Host-opdrachten:
+Write-Host "Dit is bericht 1"
+Write-Host "Dit is bericht 2"
+Opmaak:
+Gebruik de parameter -Object voor betere controle over de opmaak:
+$geformatteerdeTekst = "Geformatteerde Tekst"
+Write-Host -Object ("{0,-20} | {1,10}" -f $geformatteerdeTekst, "Waarde")
+Console wissen:
+Gebruik Clear-Host om het consolescherm te wissen:
+Clear-Host
+Naar een Bestand Loggen:
+Leid de uitvoer om naar een bestand met behulp van de > operator:
+Write-Host "Loggen naar een bestand" > "C:\Pad\Naar\Log.txt"
+Voorwaardelijke Uitvoer:
+Gebruik Write-Host binnen voorwaardelijke verklaringen:
+$status = "Succes"
+if ($status -eq "Succes") {
+    Write-Host "De bewerking was succesvol" -ForegroundColor Groen
+} else {
+    Write-Host "De bewerking is mislukt" -ForegroundColor Rood
+}
+Write-Host is een veelzijdige cmdlet voor het weergeven van informatie in de console, maar het is belangrijk op te merken dat het voornamelijk moet worden gebruikt voor doeleinden van de gebruikersinterface. Bij het omgaan met gegevens of het doorgeven van informatie tussen opdrachten, overweeg het gebruik van de pipeline of het toewijzen van waarden aan variabelen.

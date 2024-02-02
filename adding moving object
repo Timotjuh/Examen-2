@@ -1,0 +1,58 @@
+Hier is een gids over hoe je visuele indicaties kunt creëren voor de gebruiker terwijl het script een taak uitvoert in PowerShell:
+
+1. Gebruik Animatie om Activiteit aan te Geven:
+Een manier om een visuele indicatie te creëren, is door gebruik te maken van een eenvoudige animatie. In dit voorbeeld gebruiken we een draaiend wiel.
+
+$spinner = @("/","-","\","|")
+$i = 0
+
+while ($true) {
+    Write-Host -NoNewline $spinner[$i] -ForegroundColor Cyan
+    $i = ($i + 1) % $spinner.Length
+    Start-Sleep -Milliseconds 100  # Pas de slaaptijd aan voor de gewenste snelheid
+
+    # Voer hier de daadwerkelijke controle of taak uit
+    # ...
+
+    # Wis het console om te voorkomen dat de animatie zich opstapelt
+    Clear-Host
+}
+
+2. Uitleg:
+
+$spinner is een array van tekens die verschillende frames van de draaiende animatie vertegenwoordigen.
+De while ($true)-lus zorgt ervoor dat de animatie oneindig doorgaat totdat het script wordt onderbroken.
+Write-Host -NoNewline $spinner[$i] -ForegroundColor Cyan print het huidige frame van de spinner zonder een nieuwe regel, waardoor het lijkt alsof het beweegt.
+$i = ($i + 1) % $spinner.Length verhoogt de index om door de frames te gaan.
+Start-Sleep -Milliseconds 100 introduceert een korte vertraging om de snelheid van de animatie te regelen.
+3. Integreer met Je Bestaande Script:
+Voeg de animatie toe aan je bestaande script om een visuele indicatie te creëren tijdens de taak.
+
+# Voeg de animatie hier in
+$spinner = @("/","-","\","|")
+$i = 0
+
+while ($true) {
+    Write-Host -NoNewline $spinner[$i] -ForegroundColor Cyan
+    $i = ($i + 1) % $spinner.Length
+    Start-Sleep -Milliseconds 100  # Adjust the sleep time for desired speed
+
+    # Perform the actual check or task here
+    $FreeMemory = Get-CIMInstance Win32_OperatingSystem | Select FreePhysicalMemory
+    ForEach ($entry in $FreeMemory) {
+        $TimeStamp = Get-Date -Format "yyyyMMddHHmmss"
+        $MemValue = $entry.FreePhysicalMemory
+        $NewLine = "('$MachineName',$MemValue,$TimeStamp),"
+        Add-Content -Path $ResultFile -Value $NewLine
+        Write-Host "Free memory at ${TimeStamp}:" $entry.FreePhysicalMemory
+    }
+
+    # Clear the console to prevent the animation from stacking up
+    Clear-Host
+}
+4. Pas de Animatie aan:
+Pas de animatieframes, kleuren en slaaptijd aan volgens je voorkeur en om de gewenste visuele ervaring te bieden.
+
+5. Overwegingen:
+Houd er rekening mee dat te frequente of intense animaties afleidend kunnen zijn, dus zoek een balans die past bij de context van je script.
+Deze gids biedt een eenvoudig voorbeeld van hoe je een basisanimatie kunt integreren in je PowerShell-script om gebruikers een visuele indicatie te geven van lopende activiteiten. Pas het script aan naar jouw specifieke behoeften en voorkeuren.

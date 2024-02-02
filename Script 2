@@ -1,0 +1,32 @@
+Import-Module ActiveDirectory
+ 
+[System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
+ 
+$dialog = New-Object System.Windows.Forms.OpenFileDialog
+$dialog.InitialDirectory = $StartDir
+$dialog.Filter = "CSV (*.csv)| *.csv" 
+$dialog.ShowDialog() | Out-Null
+ 
+$CSVFile = $dialog.FileName
+ 
+if ([System.IO.File]::Exists($CSVFile)) {
+    Write-Host "Importing CSV..."
+    $CSV = Import-Csv -LiteralPath "$CSVFile"
+} else {
+    Write-Host "File path specified was not valid"
+    Exit
+}
+
+$Domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
+ 
+ForEach ($user in $CSV)  {
+ 
+    $fname = $user.'First Name'
+    $lname = $user.'Last Name'
+    $OUpath = $user.'Organizational Unit'
+    $UserPrincipalName = "$fname$lname@$domain"
+    New-ADUser -Name "$fname $lname" -GivenName $fname -Surname $lname -UserPrincipalName $UserPrincipalName -Path $OUpath -ChangePasswordAtLogon $true -AccountPassword (ConvertTo-SecureString "Welkom01" -AsPlainText -Force) -Enabled $true
+ 
+ 
+    echo "Account Created for $fname $lname in $OUpath"
+}

@@ -1,0 +1,27 @@
+In PowerShell, het dir-commando dat je mogelijk kent van de CMD-prompt, wordt vervangen door het Get-ChildItem cmdlet. Hier zijn verschillende manieren om het Get-ChildItem cmdlet te gebruiken en de output aan te passen:
+
+Basisgebruik van Get-ChildItem:
+
+Get-ChildItem C:\
+Aanpassen van de Output met Format-List:
+
+Get-ChildItem | Format-List
+Specifieke Eigenschappen Tonen met -Property:
+
+Get-ChildItem C:\ | Format-List -Property Name, Length
+Lijst van Bestanden in Specifieke Map:
+
+Get-ChildItem C:\Windows
+Recurse Parameter voor Submappen:
+
+Get-ChildItem C:\Windows -Recurse -Include *.txt
+Aanpassen van Kolommen met Format-Wide:
+
+Get-ChildItem C:\Windows -Recurse -Include *.txt | Format-Wide -Column 3
+Gebruik van Format-Table voor Tabelweergave:
+
+Get-ChildItem C:\Windows -Recurse -Include *.txt | Format-Table -Property Name, Length, LastWriteTime
+Bekijken van Beschikbare Eigenschappen:
+
+Get-ChildItem | Get-Member -MemberType Property
+Door het combineren van verschillende cmdlets en parameters kun je de output van Get-ChildItem aanpassen en alleen de informatie krijgen die voor jou relevant is. PowerShell biedt een uitgebreide set tools om het beheren en navigeren door bestanden en mappen efficiënter te maken.

@@ -1,0 +1,43 @@
+Commentaarsectie:
+
+De eerste paar regels zijn opmerkingen die een instructie geven:
+<#
+Zorg ervoor dat de volgende regels net zolang lopen tot de $stopAt voorbij is.
+#>
+Dit geeft aan dat ervoor gezorgd moet worden dat de volgende regels blijven worden uitgevoerd totdat de waarde van $stopAt is bereikt.
+
+Opvragen van het Vrije Fysieke Geheugen:
+
+Het script gebruikt Get-CIMInstance om informatie over het besturingssysteem op te halen, specifiek het vrije fysieke geheugen:
+
+$FreeMemory = Get-CIMInstance Win32_OperatingSystem | Select FreePhysicalMemory
+Deze informatie wordt opgeslagen in de variabele $FreeMemory.
+
+Verwerking van Elke Regel:
+
+Het script doorloopt vervolgens elke regel in $FreeMemory met behulp van een ForEach-lus:
+
+ForEach ($entry in $FreeMemory){
+Binnen de lus haalt het de huidige tijdstempel op in een specifiek formaat met behulp van Get-Date:
+
+$TimeStamp = Get-Date -Format "yyyyMMddHHmmss"
+Vervolgens wordt de waarde van het vrije fysieke geheugen opgehaald en wordt een nieuwe datalijn geconstrueerd:
+
+$MemValue = $entry.FreePhysicalMemory
+$NewLine = "('$MachineName',$MemValue,$TimeStamp),"
+De geconstrueerde regel bevat de machinenaam, de waarde van het vrije geheugen en de tijdstempel.
+
+Toevoegen van Gegevens aan een Bestand:
+
+Het script voegt de geconstrueerde regel toe aan een bestand dat is gespecificeerd door de variabele $ResultFile met behulp van Add-Content:
+
+Add-Content -Path $ResultFile -Value $NewLine
+Weergeven van Informatie:
+
+Het update de variabele $TimeStamp met de huidige datum en tijd:
+
+$TimeStamp = Get-Date
+Vervolgens gebruikt het Write-Host om informatie weer te geven over het vrije geheugen op het huidige tijdstip:
+
+Write-Host "Vrij geheugen op ${TimeStamp}:" $entry.FreePhysicalMemory
+Over het algemeen lijkt het script informatie te verzamelen en te loggen over het vrije fysieke geheugen op een machine in de loop van de tijd, de gegevens toe te voegen aan een gespecificeerd bestand, en console-uitvoer te bieden met tijdstempels. De lus blijft doorgaan totdat een bepaalde voorwaarde (waarschijnlijk gerelateerd aan $stopAt) is voldaan, zoals aangegeven in de initiële opmerking.
